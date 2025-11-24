@@ -340,7 +340,7 @@ class WITRNGUI:
                 # 注册字体
                 res = ctypes.windll.gdi32.AddFontResourceExW(font_path, FR_PRIVATE, 0)
                 if res == 0:
-                    raise RuntimeError(f"无法加载字体文件: {font_path}")
+                    raise RuntimeError(f"Unable to load font file: {font_path}")
         except Exception:
             pass
 
@@ -540,7 +540,7 @@ class WITRNGUI:
         self.filter_goodcrc_var = tk.BooleanVar(value=False)
         self.filter_goodcrc_cb = ttk.Checkbutton(
             button_frame,
-            text="屏蔽GoodCRC",
+            text="Hide GoodCRC",
             variable=self.filter_goodcrc_var,
             command=self.update_treeview
         )
@@ -551,7 +551,7 @@ class WITRNGUI:
         self.relative_time_var = tk.BooleanVar(value=False)
         self.relative_time_cb = ttk.Checkbutton(
             button_frame,
-            text="相对时间",
+            text="Relative Time",
             variable=self.relative_time_var,
             command=self.update_treeview
         )
@@ -567,7 +567,7 @@ class WITRNGUI:
         # 连接按钮
         self.connect_button = ttk.Button(
             control_frame, 
-            text="连接设备", 
+            text="Connect Device", 
             command=self.connect_device
         )
         self.connect_button.pack(side=tk.LEFT, padx=(0, 5))
@@ -575,7 +575,7 @@ class WITRNGUI:
         # 暂停按钮
         self.pause_button = ttk.Button(
             control_frame, 
-            text="开始", 
+            text="Start", 
             command=self.pause_collection,
             state=tk.DISABLED
         )
@@ -589,7 +589,7 @@ class WITRNGUI:
         # 导出列表按钮（导出为 CSV）
         self.export_button = ttk.Button(
             data_frame,
-            text="导出列表",
+            text="Export List",
             command=self.export_list,
             state=tk.DISABLED
         )
@@ -598,7 +598,7 @@ class WITRNGUI:
         # 导入CSV按钮
         self.import_button = ttk.Button(
             data_frame,
-            text="导入CSV",
+            text="Import CSV",
             command=self.import_csv
         )
         self.import_button.pack(side=tk.LEFT, padx=(0, 10))
@@ -606,13 +606,13 @@ class WITRNGUI:
         # 清空按钮
         self.clear_button = ttk.Button(
             data_frame, 
-            text="清空列表", 
+            text="Clear List", 
             command=self.clear_list
         )
         self.clear_button.pack(side=tk.LEFT)
 
         # 数据列表容器（用 LabelFrame 框住 Treeview），统一与右侧 padding 保持一致
-        list_group = ttk.LabelFrame(left_frame, text="数据列表", padding=10)
+        list_group = ttk.LabelFrame(left_frame, text="Data List", padding=10)
         list_group.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
 
@@ -682,7 +682,7 @@ class WITRNGUI:
         self.tree.bind('<Button-1>', self.on_item_click, add='+')
         
         # 右侧数据显示框架
-        right_frame = ttk.LabelFrame(main_frame, text="数据显示", padding=10)
+        right_frame = ttk.LabelFrame(main_frame, text="Data Display", padding=10)
         # 固定右侧宽度以配合左侧750和内边距（main_frame左右各10、左右分隔各5），此处取 820
         try:
             right_frame.configure(width=10000)
@@ -730,7 +730,7 @@ class WITRNGUI:
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
 
         # 左侧：常规状态文本
-        self.status_var = tk.StringVar(value="就绪")
+        self.status_var = tk.StringVar(value="Ready")
         self.status_label = tk.Label(
             self.status_bar,
             textvariable=self.status_var,
@@ -762,7 +762,7 @@ class WITRNGUI:
 
         # 初始化状态样式
         try:
-            self.set_status("就绪", level='info')
+            self.set_status("Ready", level='info')
         except Exception:
             pass
 
@@ -857,7 +857,7 @@ class WITRNGUI:
                 # 复用切换逻辑（已连接时 connect_device 会执行断开路径）
                 self.connect_device()
             else:
-                self.set_status("未连接设备", level='info')
+                self.set_status("Unconnected Device", level='info')
             return 'break'
         except Exception:
             return 'break'
@@ -888,7 +888,7 @@ class WITRNGUI:
                         self.iv_info_frame.destroy()
                 except Exception:
                     pass
-                self.iv_info_frame = ttk.LabelFrame(self.egg_top_row, text="基本信息", padding=8)
+                self.iv_info_frame = ttk.LabelFrame(self.egg_top_row, text="Basic Info", padding=8)
                 # 右侧面板占据剩余空间，并按Y方向填充与左侧保持同高
                 self.iv_info_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 0))
                 # 放置7个横向标签（电流、电压、功率、CC1、CC2、D+、D-）
@@ -902,9 +902,9 @@ class WITRNGUI:
                     pass
                 self.iv_labels = {}
                 display_names = {
-                    'current': '电流',
-                    'voltage': '电压',
-                    'power': '功率',
+                    'current': 'Current',
+                    'voltage': 'Voltage',
+                    'power': 'Power',
                     'cc1': 'CC1',
                     'cc2': 'CC2',
                     'dp': 'D+',
@@ -930,13 +930,13 @@ class WITRNGUI:
                 pass
             # 反馈状态
             try:
-                self.set_status("开发者模式已开启", level='egg')
+                self.set_status("Developer Mode Enabled", level='egg')
             except Exception:
                 pass
         except Exception:
             # 激活失败不影响主流程
             try:
-                self.set_status("彩蛋激活失败", level='warn')
+                self.set_status("Easter Egg Activation Failed", level='warn')
             except Exception:
                 pass
 
@@ -1066,7 +1066,7 @@ class WITRNGUI:
         plt.rcParams['agg.path.chunksize'] = 10000
         if getattr(self, 'right_frame', None) is None:
             return
-        self.plot_group = ttk.LabelFrame(self.right_frame, text="电流/电压 曲线", padding=6)
+        self.plot_group = ttk.LabelFrame(self.right_frame, text="Voltage / Current Plot", padding=6)
         # 放在底部，不参与 expand（保持固定高度）
         try:
             self.plot_group.pack(side=tk.BOTTOM, fill=tk.X, expand=False, pady=(8, 0))
@@ -1156,7 +1156,7 @@ class WITRNGUI:
                     w.destroy()
             except Exception:
                 pass
-            tk.Label(self.plot_container, text="创建绘图画布失败", fg="#a4262c").pack(fill=tk.BOTH, expand=True)
+            tk.Label(self.plot_container, text="Failed to create drawing canvas", fg="#a4262c").pack(fill=tk.BOTH, expand=True)
             return
 
         # 启动定时刷新
@@ -1505,7 +1505,7 @@ class WITRNGUI:
                     zorder=2  # 比hover预览线的文本更高一层
                 )
             except Exception as e:
-                print(f"[DEBUG] 添加固定线文本标签失败: {e}")
+                print(f"[DEBUG] Failed to add static text label: {e}")
                 self._selected_text_artist = None
 
             try:
@@ -1613,7 +1613,7 @@ class WITRNGUI:
                     zorder=1  # 确保在最上层
                 )
             except Exception as e:
-                print(f"[DEBUG] 添加文本标签失败: {e}")
+                print(f"[DEBUG] Failed to add text label: {e}")
                 self._hover_text_artist = None
             
             try:
@@ -1627,9 +1627,9 @@ class WITRNGUI:
         """绑定plot的鼠标事件，用于hover预览和点击锁定。"""
         try:
             if self.plot_canvas is None:
-                print("[DEBUG] plot_canvas为None，无法绑定事件")
+                print("[DEBUG] plot_canvas is None, unable to bind events")
                 return
-            print("[DEBUG] 开始绑定plot鼠标事件")
+            print("[DEBUG] Starting to bind plot mouse events")
             # motion_notify_event: 鼠标移动
             self.plot_canvas.mpl_connect('motion_notify_event', self._on_plot_mouse_move)
             # button_press_event: 鼠标按下
@@ -1639,9 +1639,9 @@ class WITRNGUI:
             # axes_enter_event/axes_leave_event: 进入/离开坐标轴区域
             self.plot_canvas.mpl_connect('axes_enter_event', self._on_plot_mouse_enter)
             self.plot_canvas.mpl_connect('axes_leave_event', self._on_plot_mouse_leave)
-            print("[DEBUG] plot鼠标事件绑定完成")
+            print("[DEBUG] Mouse event binding for plot completed")
         except Exception as e:
-            print(f"[DEBUG] 绑定事件异常: {e}")
+            print(f"[DEBUG] Event binding exception: {e}")
             import traceback
             traceback.print_exc()
             pass
@@ -1649,20 +1649,20 @@ class WITRNGUI:
     def _on_plot_mouse_enter(self, event) -> None:
         """鼠标进入plot区域，启动hover刷新。"""
         try:
-            print(f"[DEBUG] 鼠标进入plot区域")
+            print(f"[DEBUG] Mouse entered plot area")
             self._is_mouse_in_plot = True
             # 启动5Hz刷新（200ms间隔）
             if self._hover_update_job is None:
                 self._schedule_hover_update()
-                print(f"[DEBUG] 启动hover刷新")
+                print(f"[DEBUG] Enable hover refresh")
         except Exception as e:
-            print(f"[DEBUG] 进入事件异常: {e}")
+            print(f"[DEBUG] Event exception encountered: {e}")
             pass
 
     def _on_plot_mouse_leave(self, event) -> None:
         """鼠标离开plot区域，停止hover刷新并清除预览线。"""
         try:
-            print(f"[DEBUG] 鼠标离开plot区域，开始清理")
+            print(f"[DEBUG] Mouse left plot area, beginning cleanup")
             self._is_mouse_in_plot = False
             # 停止hover刷新
             if self._hover_update_job is not None:
@@ -2076,7 +2076,7 @@ class WITRNGUI:
         self.data_list.append(item)
         
         # 更新状态
-        self.set_status(f"已读取 {len(self.data_list)} 条数据", level='busy')
+        self.set_status(f"Read {len(self.data_list)} rows of data", level='busy')
 
     def start_data_thread_if_needed(self):
         """在设备可用时安全地启动数据采集进程一次。"""
@@ -2114,8 +2114,8 @@ class WITRNGUI:
             self.data_thread_started = True
             
         except Exception as e:
-            messagebox.showerror("启动失败", f"无法启动数据采集进程：{e}")
-            self.set_status("启动数据采集失败", level='error')
+            messagebox.showerror("Startup failed", f"Unable to start the data collection process：{e}")
+            self.set_status("Data collection startup failed", level='error')
     
     def _consume_queue_data(self):
         """消费队列中的数据（在主进程的后台线程中运行）"""
@@ -2144,7 +2144,7 @@ class WITRNGUI:
                             # 非错误的第一条数据才确认连接成功
                             if self.device_open and self.awaiting_connection_ack:
                                 try:
-                                    self.set_status("设备已连接", level='ok')
+                                    self.set_status("Device Connected", level='ok')
                                 except Exception:
                                     pass
                                 self.awaiting_connection_ack = False
@@ -2155,10 +2155,10 @@ class WITRNGUI:
                                         if self.pause_flag is not None:
                                             self.pause_flag.value = 0
                                         try:
-                                            self.pause_button.config(text="暂停")
+                                            self.pause_button.config(text="Pause")
                                         except Exception:
                                             pass
-                                        self.set_status("数据收集中...", level='busy')
+                                        self.set_status("Collecting Data...", level='busy')
                                         self.autostart_after_connect = False
                                 except Exception:
                                     pass
@@ -2196,7 +2196,7 @@ class WITRNGUI:
                         pass
                     except Exception as e:
                         if self.queue_consumer_running:  # 只在运行时报错
-                            print(f"处理PD数据时出错: {e}")
+                            print(f"Error occurred while processing PD data: {e}")
                 
                 # 处理电参数据队列
                 if self.iv_queue is not None:
@@ -2206,7 +2206,7 @@ class WITRNGUI:
                             # 首次收到数据，确认连接成功
                             if self.device_open and self.awaiting_connection_ack:
                                 try:
-                                    self.set_status("设备已连接", level='ok')
+                                    self.set_status("Device Connected", level='ok')
                                 except Exception:
                                     pass
                                 self.awaiting_connection_ack = False
@@ -2217,10 +2217,10 @@ class WITRNGUI:
                                         if self.pause_flag is not None:
                                             self.pause_flag.value = 0
                                         try:
-                                            self.pause_button.config(text="暂停")
+                                            self.pause_button.config(text="Pause")
                                         except Exception:
                                             pass
-                                        self.set_status("数据收集中...", level='busy')
+                                        self.set_status("Collecting Data...", level='busy')
                                         self.autostart_after_connect = False
                                 except Exception:
                                     pass
@@ -2253,14 +2253,14 @@ class WITRNGUI:
                         pass
                     except Exception as e:
                         if self.queue_consumer_running:  # 只在运行时报错
-                            print(f"处理电参数据时出错: {e}")
+                            print(f"Error while processing electrical parameter data: {e}")
                 
                 # 短暂休眠避免空转
                 time.sleep(0.01)
                 
             except Exception as e:
                 if self.queue_consumer_running:  # 只在运行时报错
-                    print(f"消费队列数据时出错: {e}")
+                    print(f"Error occurred while consuming queue data: {e}")
                 time.sleep(0.1)
     
     def _handle_device_disconnect(self):
@@ -2273,9 +2273,9 @@ class WITRNGUI:
             self.last_pdo = None
             self.last_rdo = None
             self.set_quick_pdo_rdo(None, None, force=True)
-            self.set_status("设备断开", level='error')
-            self.pause_button.config(text="开始", state=tk.DISABLED)
-            self.connect_button.config(text="连接设备", state=tk.NORMAL)
+            self.set_status("Device Disconnected", level='error')
+            self.pause_button.config(text="Start", state=tk.DISABLED)
+            self.connect_button.config(text="Connecting devices", state=tk.NORMAL)
             
             # 重置基本信息面板
             try:
@@ -2294,12 +2294,12 @@ class WITRNGUI:
             
             # 弹窗提示
             try:
-                messagebox.showwarning("设备断开", "检测到设备已断开，请重连或检查连接。")
+                messagebox.showwarning("Device disconnected", "The device has been detected as disconnected. Please reconnect or check the connection.")
             except:
                 pass
                 
         except Exception as e:
-            print(f"处理设备断开时出错: {e}")
+            print(f"Error occurred when disconnecting processing equipment: {e}")
 
     def _handle_connection_failed(self, err_msg: str):
         """处理连接失败：回退UI状态并清理资源。"""
@@ -2313,8 +2313,8 @@ class WITRNGUI:
             self.is_paused = True
             self.awaiting_connection_ack = False
             self.autostart_after_connect = False
-            self.pause_button.config(text="开始", state=tk.DISABLED)
-            self.connect_button.config(text="连接设备", state=tk.NORMAL)
+            self.pause_button.config(text="Start", state=tk.DISABLED)
+            self.connect_button.config(text="Connecting devices", state=tk.NORMAL)
             if hasattr(self, 'plot_toolbar') and self.plot_toolbar:
                 self.plot_toolbar.pack(side=tk.TOP, fill=tk.X)
             # 停止曲线刷新，重置iv显示
@@ -2327,13 +2327,13 @@ class WITRNGUI:
             except Exception:
                 pass
             # 状态与提示
-            self.set_status("连接设备失败", level='error')
+            self.set_status("Device Connection Failed", level='error')
             try:
-                messagebox.showerror("连接失败", f"无法连接到设备：{err_msg}")
+                messagebox.showerror("Connection failed", f"Unable to connect to the device：{err_msg}")
             except Exception:
                 pass
         except Exception as e:
-            print(f"处理连接失败时出错: {e}")
+            print(f"Handling connection failure errors: {e}")
 
     def _stop_collection_process(self):
         """停止数据采集进程"""
@@ -2376,7 +2376,7 @@ class WITRNGUI:
             self.pause_flag = None
             
         except Exception as e:
-            print(f"停止采集进程时出错: {e}")
+            print(f"An error occurred while stopping the collection process.: {e}")
     
     def update_treeview(self):
         """更新Treeview显示（优化版：支持增量更新）"""
@@ -2656,8 +2656,8 @@ class WITRNGUI:
             self.on_item_select(None)
             
             # 调试信息
-            print(f"选中项目: {item}, 值: {self.tree.item(item)['values']}")
-            print(f"当前选择: {self.tree.selection()}")
+            print(f"Selected items: {item}, Value: {self.tree.item(item)['values']}")
+            print(f"Current Selection: {self.tree.selection()}")
 
             # 当设备断开、非导入模式且开发者模式开启时：选中报文后自动将竖线置于焦点
             try:
@@ -2678,7 +2678,7 @@ class WITRNGUI:
             self.data_text.delete(1.0, tk.END)
 
             # 基本信息
-            self.data_text.insert(tk.END, "==== 基本信息 ====\n", 'cn')
+            self.data_text.insert(tk.END, "==== General Information ====\n", 'bold')
             self.data_text.insert(tk.END, "Index: ", ('black', 'bold'))
             self.data_text.insert(tk.END, f"{item.index}\n", 'gray')
             self.data_text.insert(tk.END, "Time: ", ('black', 'bold'))
@@ -2693,7 +2693,7 @@ class WITRNGUI:
             self.data_text.insert(tk.END, f"{item.pdr}\n", 'gray')
             self.data_text.insert(tk.END, "Message Type: ", ('black', 'bold'))
             self.data_text.insert(tk.END, f"{item.msg_type}\n", 'gray')
-            self.data_text.insert(tk.END, "\n==== 详细数据 ====\n", 'cn')
+            self.data_text.insert(tk.END, "\n==== Detailed Information ====\n", 'bold')
             self.data_text.insert(tk.END, f"Raw: 0x{int(item.data.raw(), 2):0{int(len(item.data.raw())/4)+(1 if len(item.data.raw())%4!=0 else 0)}X}\n", 'green')
             lst = []
             for i in item.data.value():
@@ -2717,22 +2717,22 @@ class WITRNGUI:
     def export_list(self):
         """将当前数据列表导出为 CSV 文件（包含详细数据字段）"""
         if not self.data_list:
-            messagebox.showwarning("警告", "没有数据可导出")
+            messagebox.showwarning("Warning", "No data to export")
             return
 
         file_path = filedialog.asksaveasfilename(
             defaultextension='.csv',
-            filetypes=[('CSV 文件', '*.csv')],
-            title='保存为 CSV'
+            filetypes=[('CSV File', '*.csv')],
+            title='Save as CSV'
         )
         if not file_path:
             return
 
         try:
-            self.set_status("正在导出数据...", level='busy')
+            self.set_status("Exporting data...", level='busy')
             with open(file_path, 'w', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
-                writer.writerow(['序号', '时间', 'SOP', 'Rev', 'PPR', 'PDR', 'Msg Type', '详细数据', 'Raw'])
+                writer.writerow(['Index', 'Time', 'SOP', 'Rev', 'PPR', 'PDR', 'Msg Type', 'Detail', 'Raw'])
                 for item in self.data_list:
                     # 使用 format_data 输出的人类可读文本作为详细数据字段
                     data_text = self.format_data(item.data)
@@ -2746,9 +2746,9 @@ class WITRNGUI:
                                      data_text,
                                      f"{int(item.data.raw(), 2):0{int(len(item.data.raw())/4)+(1 if len(item.data.raw())%4!=0 else 0)}X}"])
 
-            self.set_status(f"已导出 {len(self.data_list)} 条数据 到 {file_path}", level='ok')
+            self.set_status(f"Exported {len(self.data_list)} items to {file_path}", level='ok')
         except Exception as e:
-            messagebox.showerror("导出失败", f"导出 CSV 失败:\n{e}")
+            messagebox.showerror("Export failed", f"Failed to export CSV:\n{e}")
 
     def import_csv(self):
         """从CSV导入数据，仅解析两列：时间、Raw（全大写HEX）。
@@ -2757,11 +2757,11 @@ class WITRNGUI:
         """
         # 若正在进行数据采集（未暂停），阻止导入
         if not self.is_paused:
-            messagebox.showwarning("操作受限", "正在收集数据，无法导入CSV。请先暂停并清空列表后再试。")
+            messagebox.showwarning("Operation restricted", "Cannot import while collecting. Pause and clear list first.")
             return
         file_path = filedialog.askopenfilename(
-            filetypes=[('CSV 文件', '*.csv')],
-            title='选择CSV文件'
+            filetypes=[('CSV File', '*.csv')],
+            title='Select CSV File'
         )
         if not file_path:
             return
@@ -2769,7 +2769,7 @@ class WITRNGUI:
         # 导入应覆盖当前列表
         try:
             if len(self.data_list) > 0:
-                if not messagebox.askyesno("确认", "导入将清空当前数据列表，是否继续？"):
+                if not messagebox.askyesno("Confirm", "Import will clear current list. Continue?"):
                     return
                 self.clear_list(ask_user=False)
         except Exception:
@@ -2790,7 +2790,7 @@ class WITRNGUI:
                 time_col = get_col(["时间", "time", "Time"])
                 raw_col = get_col(["Raw", "RAW", "raw"])
                 if raw_col is None:
-                    raise ValueError("CSV中缺少列：Raw")
+                    raise ValueError("Missing column in CSV: Raw")
                 
                 last_pdo = None
                 last_rdo = None
@@ -2887,11 +2887,11 @@ class WITRNGUI:
             self.import_mode = True
 
             if self.device_open:
-                self.set_status(f"导入完成：成功 {success} 条，失败 {failed} 条。可开始收集（会先清空）。", level='ok')
+                self.set_status(f"Import complete: {success} succeeded, {failed} failed. Ready to start collection (will clear existing data first).", level='ok')
             else:
-                self.set_status(f"导入完成：成功 {success} 条，失败 {failed} 条。设备未连接，无法开始收集；请先连接设备。", level='warn')
+                self.set_status(f"Import complete: {success} succeeded, {failed} failed. Device not connected; collection cannot begin. Please connect the device first.", level='warn')
         except Exception as e:
-            messagebox.showerror("导入失败", f"无法导入CSV:\n{e}")
+            messagebox.showerror("Import Failed", f"Failed to import CSV:\n{e}")
         
     def connect_device(self):
         """连接/断开设备（连接/断开仅由采集进程处理，主进程不直接 open/close 设备）。"""
@@ -2899,20 +2899,20 @@ class WITRNGUI:
             if not self.device_open:
                 # 准备连接
                 if len(self.data_list) > 0:
-                    if not messagebox.askyesno("确认", "连接设备将清空当前数据列表，是否继续？"):
+                    if not messagebox.askyesno("Confirm", "Connecting the device will clear the current data list. Continue?"):
                         return
                     self.clear_list(ask_user=False)
                 # 标记为“已连接（待开始）”，实际打开由采集进程完成
                 self.device_open = True
                 self.is_paused = True  # 初始暂停，等待用户点击“开始”
-                self.set_status("正在连接设备...", level='warn')
+                self.set_status("Connecting to Device...", level='warn')
                 self.awaiting_connection_ack = True
                 self.autostart_after_connect = False
                 # 启动采集进程（由其负责 open(device_path)）
                 self.start_data_thread_if_needed()
                 # 更新按钮与菜单
-                self.pause_button.config(state=tk.NORMAL, text="开始")
-                self.connect_button.config(text="断开连接")
+                self.pause_button.config(state=tk.NORMAL, text="Start")
+                self.connect_button.config(text="Disconnect")
                 # 连接后初始化并启动曲线刷新（仅当彩蛋激活后才有曲线区）
                 try:
                     if self._egg_activated:
@@ -2931,9 +2931,9 @@ class WITRNGUI:
                 self.is_paused = True
                 self.awaiting_connection_ack = False
                 self.autostart_after_connect = False
-                self.set_status("设备已断开", level='warn')
-                self.pause_button.config(state=tk.DISABLED, text="开始")
-                self.connect_button.config(text="连接设备")
+                self.set_status("Device Disconnected", level='warn')
+                self.pause_button.config(state=tk.DISABLED, text="Start")
+                self.connect_button.config(text="Connecting devices")
                 # 重置基本信息面板（同步调用，保证立即刷新）
                 try:
                     self.reset_iv_info()
@@ -2948,10 +2948,10 @@ class WITRNGUI:
                 # 断开后无需重置解析器实例；设备连接实例在子进程中，会随子进程结束而释放。
         except Exception as e:
             try:
-                messagebox.showerror("连接失败", f"无法连接到设备：{e}")
+                messagebox.showerror("Connection failed", f"Unable to connect to device: {e}")
             except Exception:
                 pass
-            self.set_status("连接设备失败", level='error')
+            self.set_status("Device Connection Failed", level='error')
     
     def pause_collection(self):
         """暂停/恢复数据收集"""
@@ -2961,14 +2961,14 @@ class WITRNGUI:
                 self.autostart_after_connect = True
                 # 保持状态为“正在连接设备...”，按钮文案先行更新为“暂停”以告诉用户将自动开始
                 try:
-                    self.pause_button.config(text="暂停")
+                    self.pause_button.config(text="Pause")
                 except Exception:
                     pass
                 return
             # 恢复收集
             if self.import_mode:
                 if len(self.data_list) > 0:
-                    if not messagebox.askyesno("确认", "开始收集将清空当前数据列表，是否继续？"):
+                    if not messagebox.askyesno("Confirm", "Starting collection will clear the current data list. Continue?"):
                         return
                     self.clear_list(ask_user=False)
                 # 退出导入模式
@@ -2977,20 +2977,20 @@ class WITRNGUI:
             # 通知采集进程恢复
             if self.pause_flag is not None:
                 self.pause_flag.value = 0
-            self.pause_button.config(text="暂停")
-            self.set_status("数据收集中...", level='busy')
+            self.pause_button.config(text="Pause")
+            self.set_status("Collecting Data...", level='busy')
         else:
             # 暂停收集
             self.is_paused = True
             # 通知采集进程暂停
             if self.pause_flag is not None:
                 self.pause_flag.value = 1
-            self.pause_button.config(text="开始")
-            self.set_status("数据收集已暂停", level='warn')
+            self.pause_button.config(text="Start")
+            self.set_status("Data Collection Paused", level='warn')
 
     def clear_list(self, ask_user: bool = True):
         """清空数据列表，并重置导入模式。"""
-        if (not ask_user) or messagebox.askyesno("确认", "确定要清空所有数据吗？"):
+        if (not ask_user) or messagebox.askyesno("Confirm", "Clear all data?"):
             self.data_list.clear()
             self.current_selection = None
             # 解锁竖线并清除（固定线和预览线都清除）
@@ -3018,11 +3018,11 @@ class WITRNGUI:
             # 退出导入模式
             self.import_mode = False
             if self.is_paused and not self.device_open:
-                self.set_status("列表已清空", level='info')
+                self.set_status("List Cleared", level='info')
             elif self.device_open and self.is_paused:
-                self.set_status("列表已清空，设备已连接", level='ok')
+                self.set_status("List Cleared, Device Connected", level='ok')
             elif self.device_open and not self.is_paused:
-                self.set_status("列表已清空，数据收集中...", level='busy')
+                self.set_status("List Cleared, Collecting...", level='busy')
 
     def refresh_data_loop(self):
         """数据刷新循环（在后台线程中运行）
@@ -3072,7 +3072,7 @@ class WITRNGUI:
                     time.sleep(0.5)   # >20k: 慢速检查
                     
             except Exception as e:
-                print(f"刷新数据时出错: {e}")
+                print(f"Error occurred while refreshing data: {e}")
                 time.sleep(1)
     
     def _safe_update_treeview(self):
@@ -3080,7 +3080,7 @@ class WITRNGUI:
         try:
             self.update_treeview()
         except Exception as e:
-            print(f"更新Treeview时出错: {e}")
+            print(f"Error occurred while updating the treeview: {e}")
     
     def _delayed_update_treeview(self):
         """延迟更新Treeview（用于批量更新）"""
@@ -3090,7 +3090,7 @@ class WITRNGUI:
                 self.last_treeview_update_time = time.time()
                 self.update_treeview()
         except Exception as e:
-            print(f"延迟更新Treeview时出错: {e}")
+            print(f"Error occurred during delayed update of treeview: {e}")
             
 
     def run(self):
