@@ -994,9 +994,9 @@ class WITRNGUI:
         try:
             if isinstance(self.iv_labels, dict) and self.iv_labels:
                 display_names = {
-                    'current': '电流',
-                    'voltage': '电压',
-                    'power': '功率',
+                    'current': 'Current',
+                    'voltage': 'Voltage',
+                    'power': 'Power',
                     'cc1': 'CC1',
                     'cc2': 'CC2',
                     'dp': 'D+',
